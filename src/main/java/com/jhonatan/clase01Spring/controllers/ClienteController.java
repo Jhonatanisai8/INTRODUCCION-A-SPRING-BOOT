@@ -2,6 +2,7 @@ package com.jhonatan.clase01Spring.controllers;
 
 import com.jhonatan.clase01Spring.domain.Cliente;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -20,6 +21,13 @@ public class ClienteController {
     @GetMapping("clientes")
     public List<Cliente> getClientes() {
         return listaClientes;
+    }
+
+    @GetMapping("clientes/{usuario}")
+    public Cliente getCliente(@PathVariable String usuario) {
+        return listaClientes.stream().filter(
+                cliente -> cliente.getNombreUsuario().equalsIgnoreCase(usuario)
+        ).findFirst().orElse(null);
     }
 
 
