@@ -48,4 +48,15 @@ public class ClienteController {
                         }
                 ).orElse(null);
     }
+
+    @DeleteMapping("/clientes/{idCliente}")
+    public Cliente deleteCliente(@PathVariable int idCliente) {
+        return listaClientes.stream()
+                .filter(cliente -> cliente.getIdCliente() == idCliente)
+                .findFirst()
+                .map(cliente -> {
+                    this.listaClientes.remove(cliente);//eliminamos de la lista
+                    return cliente;
+                }).orElse(null);
+    }
 }
