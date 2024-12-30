@@ -35,4 +35,17 @@ public class ClienteController {
         return cliente;
     }
 
+    @PutMapping("/clientes")
+    public Cliente putCliente(@RequestBody Cliente cliente) {
+        return listaClientes.stream()
+                .filter(cliente1 -> cliente1.getIdCliente() == cliente.getIdCliente())
+                .findFirst()//encuentra el primer valor
+                .map(cliente1 -> {
+                            cliente1.setNombre(cliente.getNombre());
+                            cliente1.setNombreUsuario(cliente.getNombreUsuario());
+                            cliente1.setPassword(cliente.getPassword());
+                            return cliente1;
+                        }
+                ).orElse(null);
+    }
 }
