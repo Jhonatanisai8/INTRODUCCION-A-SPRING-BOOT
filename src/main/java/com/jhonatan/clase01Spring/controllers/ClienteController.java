@@ -8,6 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @RestController
+@RequestMapping("/clientes")
 public class ClienteController {
     private List<Cliente> listaClientes = new ArrayList<>(Arrays.asList(
             new Cliente(123, "Gerardo Lopez", "gerardol", "contrasena123"),
@@ -16,12 +17,12 @@ public class ClienteController {
             new Cliente(234, "Daniel Peralta", "danielp", "daniel234")
     ));
 
-    @GetMapping("/clientes")
+    @GetMapping
     public List<Cliente> getClientes() {
         return listaClientes;
     }
 
-    @GetMapping("/clientes/{usuario}")
+    @GetMapping("/{usuario}")
     public Cliente getCliente(@PathVariable String usuario) {
         return listaClientes.stream().filter(
                 cliente -> cliente.getNombreUsuario().equalsIgnoreCase(usuario)
@@ -35,7 +36,7 @@ public class ClienteController {
         return cliente;
     }
 
-    @PutMapping("/clientes")
+    @PutMapping
     public Cliente putCliente(@RequestBody Cliente cliente) {
         return listaClientes.stream()
                 .filter(cliente1 -> cliente1.getIdCliente() == cliente.getIdCliente())
@@ -49,7 +50,7 @@ public class ClienteController {
                 ).orElse(null);
     }
 
-    @DeleteMapping("/clientes/{idCliente}")
+    @DeleteMapping("/{idCliente}")
     public Cliente deleteCliente(@PathVariable int idCliente) {
         return listaClientes.stream()
                 .filter(cliente -> cliente.getIdCliente() == idCliente)
@@ -60,7 +61,7 @@ public class ClienteController {
                 }).orElse(null);
     }
 
-    @PatchMapping("/clientes")
+    @PatchMapping
     public Cliente patchCliente(@RequestBody Cliente cliente) {
         return listaClientes.stream()
                 .filter(cliente1 -> cliente1.getIdCliente() == cliente.getIdCliente())
