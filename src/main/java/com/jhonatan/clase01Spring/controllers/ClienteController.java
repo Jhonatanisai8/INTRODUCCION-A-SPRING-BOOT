@@ -23,7 +23,8 @@ public class ClienteController {
         return listaClientes;
     }
 
-    @GetMapping("/{usuario}")
+    //@GetMapping("/{usuario}")
+    @RequestMapping(value = "/{usuario}", method = RequestMethod.GET)
     public Cliente getCliente(@PathVariable String usuario) {
         return listaClientes.stream().filter(
                 cliente -> cliente.getNombreUsuario().equalsIgnoreCase(usuario)
@@ -31,13 +32,15 @@ public class ClienteController {
     }
 
 
-    @PostMapping
+    //@PostMapping
+    @RequestMapping(method = RequestMethod.POST)
     public Cliente postCliente(@RequestBody Cliente cliente) { //recibe un valor de tipo json y lo transforma
         this.listaClientes.add(cliente);
         return cliente;
     }
 
-    @PutMapping
+    //@PutMapping
+    @RequestMapping(method = RequestMethod.PUT)
     public Cliente putCliente(@RequestBody Cliente cliente) {
         return listaClientes.stream()
                 .filter(cliente1 -> cliente1.getIdCliente() == cliente.getIdCliente())
@@ -51,7 +54,8 @@ public class ClienteController {
                 ).orElse(null);
     }
 
-    @DeleteMapping("/{idCliente}")
+    //@DeleteMapping("/{idCliente}")
+    @RequestMapping(value = "/{idCliente}", method = RequestMethod.DELETE)
     public Cliente deleteCliente(@PathVariable int idCliente) {
         return listaClientes.stream()
                 .filter(cliente -> cliente.getIdCliente() == idCliente)
@@ -62,7 +66,8 @@ public class ClienteController {
                 }).orElse(null);
     }
 
-    @PatchMapping
+    //@PatchMapping
+    @RequestMapping(method = RequestMethod.PATCH)
     public Cliente patchCliente(@RequestBody Cliente cliente) {
         return listaClientes.stream()
                 .filter(cliente1 -> cliente1.getIdCliente() == cliente.getIdCliente())
