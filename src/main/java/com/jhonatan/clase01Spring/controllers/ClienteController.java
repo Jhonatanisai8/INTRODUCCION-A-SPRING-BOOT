@@ -17,7 +17,8 @@ public class ClienteController {
             new Cliente(234, "Daniel Peralta", "danielp", "daniel234")
     ));
 
-    @GetMapping
+    //@GetMapping
+    @RequestMapping(method = RequestMethod.GET) // otra forma de especificar la solicitud http
     public List<Cliente> getClientes() {
         return listaClientes;
     }
