@@ -59,4 +59,23 @@ public class ClienteController {
                     return cliente;
                 }).orElse(null);
     }
+
+    @PatchMapping("/clientes")
+    public Cliente patchCliente(@RequestBody Cliente cliente) {
+        return listaClientes.stream()
+                .filter(cliente1 -> cliente1.getIdCliente() == cliente.getIdCliente())
+                .findFirst()
+                .map(cliente1 -> {
+                    if (cliente.getNombre() != null) {
+                        cliente1.setNombre(cliente.getNombre());
+                    }
+                    if (cliente.getNombreUsuario() != null) {
+                        cliente1.setNombreUsuario(cliente.getNombreUsuario());
+                    }
+                    if (cliente.getPassword() != null) {
+                        cliente1.setPassword(cliente.getPassword());
+                    }
+                    return cliente1;
+                }).orElse(null);
+    }
 }
