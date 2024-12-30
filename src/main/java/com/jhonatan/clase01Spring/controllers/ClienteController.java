@@ -30,7 +30,7 @@ public class ClienteController {
     }
 
 
-    @PostMapping("/clientes")
+    @PostMapping
     public Cliente postCliente(@RequestBody Cliente cliente) { //recibe un valor de tipo json y lo transforma
         this.listaClientes.add(cliente);
         return cliente;
