@@ -4,7 +4,9 @@ import com.jhonatan.clase01Spring.domain.Cliente;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -40,7 +42,17 @@ public class ClienteController {
     @PostMapping
     public ResponseEntity<?> postCliente(@RequestBody Cliente cliente) { //recibe un valor de tipo json y lo transforma
         this.listaClientes.add(cliente);
-        return ResponseEntity.status(HttpStatus.CREATED).body("Cliente creado exitosamente: " + cliente.getNombre());
+        //return ResponseEntity.status(HttpStatus.CREATED).body("Cliente creado exitosamente: " + cliente.getNombre());
+
+        //creacion de la URI
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{usuario}")
+                .buildAndExpand(cliente.getNombreUsuario()) //obtenemos el nombre de usuario
+                .toUri();
+
+        //return ResponseEntity.created(location).build();
+        return ResponseEntity.created(location).body(cliente);//para mostrar la informacion pasada por parametro (informacion del cliente)
     }
 
     //@RequestMapping(method = RequestMethod.PUT)
