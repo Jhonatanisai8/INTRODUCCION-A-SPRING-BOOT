@@ -56,9 +56,11 @@ public class ClienteController {
             clienteExistente.setNombre(clienteB.getNombre());
             clienteExistente.setNombreUsuario(clienteB.getNombreUsuario());
             clienteExistente.setPassword(clienteB.getPassword());
-            return ResponseEntity.ok("Cliente modificado satisfactoriamente: " + clienteExistente.getNombre());
+            //return ResponseEntity.ok("Cliente modificado satisfactoriamente: " + clienteExistente.getNombre());
+            return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro un cliente con el ID: " + clienteB.getIdCliente());
+        //return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro un cliente con el ID: " + clienteB.getIdCliente());
+        return ResponseEntity.notFound().build();
     }
 
     //@RequestMapping(value = "/{idCliente}", method = RequestMethod.DELETE)
@@ -67,9 +69,11 @@ public class ClienteController {
         Optional<Cliente> clienteBuscado = listaClientes.stream().filter(cliente -> cliente.getIdCliente() == idCliente).findFirst();
         if (clienteBuscado.isPresent()) {
             this.listaClientes.remove(clienteBuscado.get());
-            return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Cliente eliminado correctamente: " + idCliente);
+            //return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Cliente eliminado correctamente: " + idCliente);
+            return ResponseEntity.noContent().build();
         }
-        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente no encontradoo con el ID: " + idCliente);
+        //return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente no encontradoo con el ID: " + idCliente);
+        return ResponseEntity.notFound().build();
     }
 
     //    @RequestMapping(method = RequestMethod.PATCH)
